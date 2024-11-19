@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <h1>This is an about page {{userId}}</h1>
   </div>
 </template>
 
@@ -13,3 +13,30 @@
   }
 }
 </style>
+
+<script>
+import liff from '@line/liff';
+
+export default {
+  name: 'about',
+  data() {
+    return {
+      userId: ''
+    };
+  },
+  mounted(){
+    liff
+      .init({
+        liffId: "2006570218-5mxGdm4R", // Use own liffId
+      })
+      .then(() => {
+          console.log('串接成功')
+          liff.getProfile()
+              .then((res) => {
+                this.userId = res.userId
+              })
+      })
+  },
+};
+</script>
+
